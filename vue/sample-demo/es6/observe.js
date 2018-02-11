@@ -16,7 +16,7 @@ export default class Observe {
 		var dep = new Dep()
 		Object.defineProperty(this.vm, key, {
 			get: function() {
-				// 添加订阅者watet到主题对象
+				// 添加订阅者watet到主体对象
 				if (Dep.target) dep.addSub(Dep.target)
 				return val
 			},

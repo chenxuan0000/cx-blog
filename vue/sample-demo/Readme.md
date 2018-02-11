@@ -24,6 +24,43 @@ new Vue({
 1.[`Es6-class`](http://es6.ruanyifeng.com/#docs/class?_blank)
 2.[`DocumentFragment`](https://developer.mozilla.org/zh-CN/docs/Web/API/DocumentFragment?_blank)
 3.[`Object.defineProperty`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty?_blank)
+4.[`订阅/发布模式`]
+
+## 📢订阅/发布模式（subscribe&publish）
+
+>  data 的text1/text2 属性变化了，set方法也触发了，但是文本节点的内容没有同步更新。这里需要通过订阅发布模式来实现。
+
+> 订阅发布模式（又称观察者模式）定义了一种一对多的关系，让多个观察者同时监听某一个主体对象，这个主体对象的状态发生改变时就会通知所有观察者对象。
+
+> 发布者发出通知 => 主题对象收到通知并推送给订阅者 => 订阅者执行相应操作
+
+> 👽a simple example 
+```javascript
+// 发布者函数
+var publish = {
+  pub: function () {
+    dep.notify()
+  }
+}
+
+// 两个订阅者
+var sub1 = { update: function () {console.log(1)}}
+var sub2 = { update: function () {console.log(2)}}
+
+// 主体对象
+function Dep () {
+  this.subs = [sub1 , sub2]
+}
+Dep.prototype.notify = function () {
+  this.subs.forEach(function (sub) {
+    sub.update()
+  })
+}
+
+// 发布者发布消息,主体对象执行notify,进而触发订阅者的update
+var dep = new Dep()
+publish.pub() // 1 , 2
+```
 
 
 ## ⤵实现步骤细化
@@ -137,7 +174,110 @@ export default class complie {
 
 > 1.增加observe
 <p align="center">
-    <img src="./img/1.png" width="700"/>
+    <img src="./img/1.png"/>
 </p> 
 
+> *Object.defineProperty* 将 data 中的 各个属性 设置为实例的访问器属性(优先级高于普通属性)
 > 2.observe.js
+```javascript
+export default class Observe {
+	constructor(data, vm) {
+		this.data = data
+		this.vm = vm
+		this.repeatData()
+	}
+
+	repeatData() {
+		Object.keys(this.data).forEach(item => {
+			this.definePrototy(item, this.data[item])
+		})
+	}
+
+	definePrototy(key, val) {
+		Object.defineProperty(this.vm, key, {
+			get: function() {
+				return val
+			},
+			set: function(newVal) {
+        if (newVal === val) return
+        // 实现更新val
+				val = newVal
+			}
+		})
+	}
+}
+
+```
+
+### ⌛实现双向绑定 model => view
+#### 回顾之前的操作
+>  *new Vue()* 主要操作 监听数据: *observe()*/编译 *HTML：domToFragment()*。
+> 监听数据时候为 *data* 的每个属性生成一个 dep 主体对象
+> 编译 *HTML* 的过程中，会为每个与数据绑定相关的节点生成一个订阅者 *watcher*，*watcher* 会将自己添加到相应属性的 *dep* 中。
+> 目前已经实现：修改input => 在事件回调函数中修改属性值 => 通过 *definePrototype* 触发属性的 *set* 方法。
+> 下面要实现: 发出通知 *dep.notify()* => 触发订阅者的 *update* 方法 => 更新视图。
+> *important* 如何将 *watcher* 添加到关联属性的 *dep* 中 ?
+
+> 1.在编译 HTML 过程中，为每个与 data 关联的节点生成一个 Watcher
+<p align="center">
+    <img src="./img/2.png"/>
+</p> 
+
+> 2.watcher.js
+> 2.1 把自己赋值给了一个全局变量 Dep.target
+> 2.2 执行了 update 方法，进而执行了 get 方法，get方法读取实例的访问器属性，从而触发了访问器属性的 get 方法，get 方法中将该 watcher 添加到了对应访问器属性的 dep 中
+> 2.3 获取属性的值，然后更新视图
+> 2.4  Dep.target 设为空。因为它是全局变量，也是 watcher 与 dep 关联的唯一桥梁，任何时刻都必须保证 Dep.target 只有一个值
+
+```javascript
+import Dep from './dep'
+export default class watcher {
+	constructor(vm, node, name, nodeType) {
+		Dep.target = this
+		this.name = name
+		this.node = node
+		this.vm = vm
+		this.nodeType = nodeType
+		this.update()
+		Dep.target = null
+	}
+
+	update() {
+		this.get()
+		if (this.nodeType == 'text') {
+			this.node.nodeValue = this.value
+		} else if (this.nodeType == 'input') {
+			this.node.value = this.value
+		}
+	}
+
+	get() {
+		this.value = this.vm[this.name] // 触发对应属性的get
+	}
+}
+
+> 4.observe.js
+<p align="center">
+    <img src="./img/3.png"/>
+</p> 
+
+```
+> 4.dep.js
+```javascript
+export default class Dep {
+	constructor() {
+		this.subs = []
+	}
+
+	addSub(sub) {
+		this.subs.push(sub)
+	}
+
+	notify() {
+		this.subs.forEach(sub => {
+			sub.update()
+		})
+	}
+}
+
+```
