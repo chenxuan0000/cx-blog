@@ -21,10 +21,16 @@ new Vue({
 
 ## ⛷技术点
 > 罗列demo里面用到的技术点不熟悉自行点文档了解(不做详细解释)
-1.[`Es6-class`](http://es6.ruanyifeng.com/#docs/class?_blank)
-2.[`DocumentFragment`](https://developer.mozilla.org/zh-CN/docs/Web/API/DocumentFragment?_blank)
-3.[`Object.defineProperty`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty?_blank)
-4.[`订阅/发布模式`]
+
+1.[`Es6-class`](http://es6.ruanyifeng.com/#docs/class){:target="_blank"}
+
+2.[`DocumentFragment`](https://developer.mozilla.org/zh-CN/docs/Web/API/DocumentFragment){:target="_blank"}
+
+3.[`Object.defineProperty`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty){:target="_blank"}
+
+4.`订阅/发布模式`
+
+
 
 ## 📢订阅/发布模式（subscribe&publish）
 
@@ -224,9 +230,13 @@ export default class Observe {
 </p> 
 
 > 2.watcher.js
+
 > 2.1 把自己赋值给了一个全局变量 Dep.target
+
 > 2.2 执行了 update 方法，进而执行了 get 方法，get方法读取实例的访问器属性，从而触发了访问器属性的 get 方法，get 方法中将该 watcher 添加到了对应访问器属性的 dep 中
+
 > 2.3 获取属性的值，然后更新视图
+
 > 2.4  Dep.target 设为空。因为它是全局变量，也是 watcher 与 dep 关联的唯一桥梁，任何时刻都必须保证 Dep.target 只有一个值
 
 ```javascript
@@ -257,7 +267,7 @@ export default class watcher {
 }
 ```
 
-> 4.observe.js
+> 3.observe.js
 <p align="center">
     <img src="./img/3.png"/>
 </p> 
