@@ -18,13 +18,6 @@ new Vue({
     text2: 'chenxuan1'
   }
 })
-new Vue({
-	el: 'app',
-	data: {
-    text1: 'chenxuan',
-		text2: 'chenxuan2'
-	}
-})
 ```
 
 
@@ -96,11 +89,11 @@ publish.pub() // 1 , 2
 import Vue from './vue'
 
 new Vue({
-	el: 'app',
-	data: {
+  el: 'app',
+  data: {
     text1: 'chenxuan',
-		text2: 'chenxuan2'
-	}
+    text2: 'chenxuan1'
+  }
 })
 ```
 
