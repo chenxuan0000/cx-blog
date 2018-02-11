@@ -2,14 +2,15 @@
 
 ## 目标
 > 实现如下的双向绑定
-```javascript
+```html
 <div id="app">
     <input type="text" v-model="text1">
     {{text1}}
      <input type="text" v-model="text2">
     {{text2}}
 </div>
-
+```
+```javascript
 new Vue({
 	el: 'app',
 	data: {
@@ -85,12 +86,13 @@ publish.pub() // 1 , 2
 > 入口index.js
 ```javascript
 import Vue from './vue'
+
 new Vue({
   el: 'app',
-	data: {
-		text1: 'chenxuan',
-		text2: 'chenxuan2'
-	}
+  data: {
+    text1: 'chenxuan',
+    text2: 'chenxuan1'
+  }
 })
 ```
 
