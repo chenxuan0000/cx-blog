@@ -81,7 +81,7 @@ publish.pub() // 1 , 2
 
 
 
-### ⌚ data和输入框文本框数据绑定
+### ⌚ 步骤1: data和输入框文本框数据绑定
 
 > 入口index.js
 
@@ -112,10 +112,10 @@ export default class complie {
   }
 
   run () {
-    let reg = /\{\{(.*)\}\}/;
-		let node = this.node;
-		let vm = this.vm;
-    let nodeType = node.nodeType;
+    let reg = /\{\{(.*)\}\}/
+    let node = this.node
+    let vm = this.vm
+    let nodeType = node.nodeType
     switch (nodeType) {
       case 1:
         // 元素节点
@@ -125,20 +125,20 @@ export default class complie {
             // data值赋值给node
             let name = attr[i].nodeValue
             // input事件
-						node.addEventListener('input', e => {
-							vm[name] = e.target.value
+            node.addEventListener('input', e => {
+              vm[name] = e.target.value
             })
             node.value = vm.data[name]
-						node.removeAttribute('v-model')
+            node.removeAttribute('v-model')
           }
         }
         break
       case 3:
         // 文本节点
         if (reg.test(node.nodeValue)) {
-					let name = RegExp.$1.trim()
-					node.nodeValue = vm.data[name]
-				}
+          let name = RegExp.$1.trim()
+          node.nodeValue = vm.data[name]
+        }
         break      
     }
   }
@@ -151,53 +151,53 @@ export default class complie {
 import Watcher from './watcher'
 
 export default class complie {
-	constructor (node, vm) {
-		this.node = node
-		this.vm = vm
-		this.run()
-	}
-
-	run () {
-		let reg = /\{\{(.*)\}\}/
-		let node = this.node
-		let vm = this.vm
-		let nodeType = node.nodeType
-		switch (nodeType) {
-			case 1:
-				// 元素节点
-				let attr = node.attributes
-				for (let i = 0; i < attr.length; i++) {
-					if (attr[i].nodeName == 'v-model') {
-						// data值赋值给node
-						let name = attr[i].nodeValue
-						// input事件
-						node.addEventListener('input', e => {
-							vm[name] = e.target.value
+  constructor (node, vm) {
+    this.node = node
+    this.vm = vm
+    this.run()
+  }
+  
+  run () {
+    let reg = /\{\{(.*)\}\}/
+    let node = this.node
+    let vm = this.vm
+    let nodeType = node.nodeType
+    switch (nodeType) {
+      case 1:
+        // 元素节点
+        let attr = node.attributes
+        for (let i = 0; i < attr.length; i++) {
+          if (attr[i].nodeName == 'v-model') {
+            // data值赋值给node
+            let name = attr[i].nodeValue
+            // input事件
+            node.addEventListener('input', e => {
+              vm[name] = e.target.value
             })
             // 渲染元素节点值
-						node.value = vm.data[name]
-						node.removeAttribute('v-model')
-					}
-				}
-				break
-			case 3:
-				// 文本节点
-				if (reg.test(node.nodeValue)) {
+            node.value = vm.data[name]
+            node.removeAttribute('v-model')
+          }
+        }
+        break
+      case 3:
+        // 文本节点
+        if (reg.test(node.nodeValue)) {
           let name = RegExp.$1.trim()
           // 渲染文本节点值
           node.nodeValue = vm.data[name]
-				}
-				break
-			default:
-				break
-		}
-	}
+        }
+        break
+      default:
+        break
+    }
+  }
 }
 ```
 
 
 
-### ⌛响应式的data绑定 view => model
+### ⌛ 步骤2: 响应式的data绑定 view => model
 > 当我们在输入框输入的时候，会触发 *input* 事件，在相应的事件处理回调中，我们获取输入框的 *value* 并赋值给 *Vue* 实例的 *data* 对应的属性。这里会用 *defineProperty* 将 data 中的 各个属性 设置为实例的访问器属性(优先级高于普通属性)，因此给对应属性赋值，就会触发 *set* 方法。在 set 方法中主要做两件事 ,第一是更新属性的值,第二是同步值到页面(步骤三实现)
 
 > 1.增加observe
@@ -241,7 +241,7 @@ export default class Observe {
 ```
 
 
-### ⌛实现双向绑定 model => view
+### ⌛ 步骤3: 实现双向绑定 model => view
 
 #### 回顾之前的操作
 >  *new Vue()* 主要操作 监听数据: *observe()*/编译 *HTML：domToFragment()*。
@@ -271,28 +271,28 @@ export default class Observe {
 ```javascript
 import Dep from './dep'
 export default class watcher {
-	constructor (vm, node, name, nodeType) {
-		Dep.target = this
-		this.name = name
-		this.node = node
-		this.vm = vm
-		this.nodeType = nodeType
-		this.update()
-		Dep.target = null
-	}
-
-	update () {
-		this.get()
-		if (this.nodeType == 'text') {
-			this.node.nodeValue = this.value
-		} else if (this.nodeType == 'input') {
-			this.node.value = this.value
-		}
-	}
-
-	get () {
-		this.value = this.vm[this.name] // 触发对应属性的get
-	}
+  constructor (vm, node, name, nodeType) {
+    Dep.target = this
+    this.name = name
+    this.node = node
+    this.vm = vm
+    this.nodeType = nodeType
+    this.update()
+    Dep.target = null
+  }
+  
+  update () {
+    this.get()
+    if (this.nodeType == 'text') {
+      this.node.nodeValue = this.value
+    } else if (this.nodeType == 'input') {
+      this.node.value = this.value
+    }
+  }
+  
+  get () {
+    this.value = this.vm[this.name] // 触发对应属性的get
+  }
 }
 ```
 
@@ -306,19 +306,18 @@ export default class watcher {
 
 ```javascript
 export default class Dep {
-	constructor () {
-		this.subs = []
-	}
-
-	addSub (sub) {
-		this.subs.push(sub)
-	}
-
-	notify () {
-		this.subs.forEach(sub => {
-			sub.update()
-		})
-	}
+  constructor () {
+    this.subs = []
+  }
+  
+  addSub (sub) {
+    this.subs.push(sub)
+  }
+  
+  notify () {
+    this.subs.forEach(sub => {
+      sub.update()
+    })
+  }
 }
-
 ```
