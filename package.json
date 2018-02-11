@@ -1,0 +1,15 @@
+{
+	"name": "learning-records",
+	"version": "1.0.0",
+	"description": "learning-records",
+	"main": "index.js",
+	"repository": "https://github.com/chenxuan0000/learning-records",
+	"author": "chenxuan <chenxuan@kongzhongjr.com>",
+	"license": "MIT",
+	"scripts": {
+		"demo1": "parcel vue/sample-demo/demo1.html"
+	},
+	"dependencies": {
+		"babel-preset-env": "^1.6.1"
+	}
+}
