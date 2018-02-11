@@ -112,10 +112,10 @@ export default class complie {
   }
 
   run () {
-    let reg = /\{\{(.*)\}\}/
-		let node = this.node
-		let vm = this.vm
-    let nodeType = node.nodeType
+    let reg = /\{\{(.*)\}\}/;
+		let node = this.node;
+		let vm = this.vm;
+    let nodeType = node.nodeType;
     switch (nodeType) {
       case 1:
         // 元素节点
