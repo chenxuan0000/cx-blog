@@ -81,9 +81,9 @@ publish.pub() // 1 , 2
 
 
 
-### ⌚ 步骤1: data和输入框文本框数据绑定
+### ⌛ 步骤1: data和输入框文本框数据绑定
 
-> 入口index.js
+> [**入口index.js**](./es6/index.js)
 
 ```javascript
 import Vue from './vue'
@@ -200,7 +200,7 @@ export default class complie {
 ### ⌛ 步骤2: 响应式的data绑定 view => model
 > 当我们在输入框输入的时候，会触发 *input* 事件，在相应的事件处理回调中，我们获取输入框的 *value* 并赋值给 *Vue* 实例的 *data* 对应的属性。这里会用 *defineProperty* 将 data 中的 各个属性 设置为实例的访问器属性(优先级高于普通属性)，因此给对应属性赋值，就会触发 *set* 方法。在 set 方法中主要做两件事 ,第一是更新属性的值,第二是同步值到页面(步骤三实现)
 
-> 1.增加observe
+> 1. 增加observe
 
 <p align="center">
     <img src="./img/1.png"/>
@@ -208,7 +208,7 @@ export default class complie {
 
 > *Object.defineProperty* 将 data 中的 各个属性 设置为实例的访问器属性(优先级高于普通属性)
 
-> 2.[**observe.js**](./es6/observe.js)
+> 2. [**observe.js**](./es6/observe.js)
 
 ```javascript
 export default class Observe {
@@ -251,13 +251,13 @@ export default class Observe {
 > 下面要实现: 发出通知 *dep.notify()* => 触发订阅者的 *update* 方法 => 更新视图。
 > *important* 如何将 *watcher* 添加到关联属性的 *dep* 中 ?
 
-> 1.在编译 HTML 过程中，为每个与 data 关联的节点生成一个 Watcher
+> 1. 在编译 HTML 过程中，为每个与 data 关联的节点生成一个 Watcher
 
 <p align="center">
     <img src="./img/2.png"/>
 </p> 
 
-> 2.[**watcher.js**](./es6/watcher.js)
+> 2. [**watcher.js**](./es6/watcher.js)
 
 > 2.1 把自己赋值给了一个全局变量 Dep.target
 
@@ -296,13 +296,13 @@ export default class watcher {
 }
 ```
 
-> 3.[**observe.js**](./es6/observe.js)
+> 3. [**observe.js**](./es6/observe.js)
 
 <p align="center">
     <img src="./img/3.png"/>
 </p> 
 
-> 4.[**dep.js**](./es6/dep.js)
+> 4. [**dep.js**](./es6/dep.js)
 
 ```javascript
 export default class Dep {
