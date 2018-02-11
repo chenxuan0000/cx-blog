@@ -84,6 +84,7 @@ publish.pub() // 1 , 2
 ### ⌚ data和输入框文本框数据绑定
 
 > 入口index.js
+
 ```javascript
 import Vue from './vue'
 
@@ -99,6 +100,7 @@ new Vue({
 > *DocumentFragment*（文档片段）可以看作节点容器，它可以包含多个子节点，当我们将它插入到 *DOM* 中时，只有它的子节点会插入目标节点，所以把它看作一组节点的容器。使用 *DocumentFragment* 处理节点，速度和性能远远优于直接操作 *DOM*。*Vue* 进行编译时，就是将挂载目标的所有子节点劫持（通过 *append* 方法，*DOM* 中的节点会被自动删除）到 *DocumentFragment* 中，经过一番处理后，再将 *DocumentFragment* 整体返回插入挂载目标。
 
 > vue.js
+
 ```javascript
 import Complie from './complie'
 
@@ -144,6 +146,7 @@ export default class complie {
 ```
 
 > complie.js
+
 ```javascript
 import Watcher from './watcher'
 
@@ -190,7 +193,6 @@ export default class complie {
 		}
 	}
 }
-
 ```
 
 
@@ -199,12 +201,15 @@ export default class complie {
 > 当我们在输入框输入的时候，会触发 *input* 事件，在相应的事件处理回调中，我们获取输入框的 *value* 并赋值给 *Vue* 实例的 *data* 对应的属性。这里会用 *defineProperty* 将 data 中的 各个属性 设置为实例的访问器属性(优先级高于普通属性)，因此给对应属性赋值，就会触发 *set* 方法。在 set 方法中主要做两件事 ,第一是更新属性的值,第二是同步值到页面(步骤三实现)
 
 > 1.增加observe
+
 <p align="center">
     <img src="./img/1.png"/>
 </p> 
 
 > *Object.defineProperty* 将 data 中的 各个属性 设置为实例的访问器属性(优先级高于普通属性)
+
 > 2.observe.js
+
 ```javascript
 export default class Observe {
 	constructor (data, vm) {
@@ -236,7 +241,6 @@ export default class Observe {
 ```
 
 
-
 ### ⌛实现双向绑定 model => view
 
 #### 回顾之前的操作
@@ -248,6 +252,7 @@ export default class Observe {
 > *important* 如何将 *watcher* 添加到关联属性的 *dep* 中 ?
 
 > 1.在编译 HTML 过程中，为每个与 data 关联的节点生成一个 Watcher
+
 <p align="center">
     <img src="./img/2.png"/>
 </p> 
@@ -261,6 +266,7 @@ export default class Observe {
 > 2.3 获取属性的值，然后更新视图
 
 > 2.4  Dep.target 设为空。因为它是全局变量，也是 watcher 与 dep 关联的唯一桥梁，任何时刻都必须保证 Dep.target 只有一个值
+
 
 ```javascript
 import Dep from './dep'
@@ -291,11 +297,13 @@ export default class watcher {
 ```
 
 > 3.observe.js
+
 <p align="center">
     <img src="./img/3.png"/>
 </p> 
 
 > 4.dep.js
+
 ```javascript
 export default class Dep {
 	constructor () {
