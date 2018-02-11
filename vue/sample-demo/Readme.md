@@ -19,28 +19,28 @@ new Vue({
 })
 ```
 
+
 ## ⛷技术点
-> 罗列demo里面用到的技术点不熟悉自行点文档了解(不做详细解释)
+> 不熟悉自行点链接了解(不做详细解释)
 
-1.[`Es6-class`](http://es6.ruanyifeng.com/#docs/class){:target="_blank"}
+- [**`Es6-class`**](http://es6.ruanyifeng.com/#docs/class)
 
-2.[`DocumentFragment`](https://developer.mozilla.org/zh-CN/docs/Web/API/DocumentFragment){:target="_blank"}
+- [**`DocumentFragment`**](https://developer.mozilla.org/zh-CN/docs/Web/API/DocumentFragment)
 
-3.[`Object.defineProperty`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty){:target="_blank"}
+- [**`Object.defineProperty`**](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
 
-4.`订阅/发布模式`
+- [**`订阅/发布模式`**]
 
 
 
 ## 📢订阅/发布模式（subscribe&publish）
 
->  data 的text1/text2 属性变化了，set方法也触发了，但是文本节点的内容没有同步更新。这里需要通过订阅发布模式来实现。
-
 > 订阅发布模式（又称观察者模式）定义了一种一对多的关系，让多个观察者同时监听某一个主体对象，这个主体对象的状态发生改变时就会通知所有观察者对象。
 
 > 发布者发出通知 => 主题对象收到通知并推送给订阅者 => 订阅者执行相应操作
 
-> 👽a simple example 
+
+- **⌨ a simple example**
 ```javascript
 // 发布者函数
 var publish = {
@@ -69,12 +69,16 @@ publish.pub() // 1 , 2
 ```
 
 
+
 ## ⤵实现步骤细化
-1、输入框以及文本节点与 data 中的数据绑定。
+*1、* 输入框以及文本节点与 data 中的数据绑定。
 
-2、输入框内容变化时，data 中的数据同步变化。即 view => model 的变化。
+*2、* 输入框内容变化时，data 中的数据同步变化。即 view => model 的变化。
 
-3、data 中的数据变化时，文本节点的内容同步变化。即 model => view 的变化。
+*3、* data 中的数据变化时，文本节点的内容同步变化。即 model => view 的变化。
+
+
+
 
 ### ⌚ data和输入框文本框数据绑定
 
@@ -82,7 +86,7 @@ publish.pub() // 1 , 2
 ```javascript
 import Vue from './vue'
 new Vue({
-	el: 'app',
+  el: 'app',
 	data: {
 		text1: 'chenxuan',
 		text2: 'chenxuan2'
@@ -91,22 +95,23 @@ new Vue({
 ```
 
 > *DocumentFragment*（文档片段）可以看作节点容器，它可以包含多个子节点，当我们将它插入到 *DOM* 中时，只有它的子节点会插入目标节点，所以把它看作一组节点的容器。使用 *DocumentFragment* 处理节点，速度和性能远远优于直接操作 *DOM*。*Vue* 进行编译时，就是将挂载目标的所有子节点劫持（通过 *append* 方法，*DOM* 中的节点会被自动删除）到 *DocumentFragment* 中，经过一番处理后，再将 *DocumentFragment* 整体返回插入挂载目标。
+
 > vue.js
 ```javascript
 import Complie from './complie'
 
 export default class Vue {
-	constructor(params) {
+	constructor (params) {
 		this.data = params.data
 		this.el = params.el
 		this.appendChild()
 	}
 
-	domToFragment(node) {
+	domToFragment (node) {
 		// createDocumentFragment 效率高于原生dom操作很多
 		let parent = document.createDocumentFragment()
 		let child
-		while ((child = node.firstChild)) {
+		while (child = node.firstChild) {
 			// 使用documentFragment的append方法，会将作为参数的节点从DOM中截取取出来
 			// 而firstChild就指向了本来是排在第二个的元素对象。如此循环下去 *
 			// 劫持node所有子节点
@@ -116,7 +121,7 @@ export default class Vue {
 		return parent
 	}
 
-	appendChild() {
+	appendChild () {
 		let nodeEle = document.getElementById(this.el)
 		let dom = this.domToFragment(nodeEle)
 		nodeEle.appendChild(dom)
@@ -130,13 +135,13 @@ export default class Vue {
 import Watcher from './watcher'
 
 export default class complie {
-	constructor(node, vm) {
+	constructor (node, vm) {
 		this.node = node
 		this.vm = vm
 		this.run()
 	}
 
-	run() {
+	run () {
 		let reg = /\{\{(.*)\}\}/
 		let node = this.node
 		let vm = this.vm
@@ -175,6 +180,8 @@ export default class complie {
 
 ```
 
+
+
 ### ⌛响应式的data绑定 view => model
 > 当我们在输入框输入的时候，会触发 *input* 事件，在相应的事件处理回调中，我们获取输入框的 *value* 并赋值给 *Vue* 实例的 *data* 对应的属性。这里会用 *defineProperty* 将 data 中的 各个属性 设置为实例的访问器属性(优先级高于普通属性)，因此给对应属性赋值，就会触发 *set* 方法。在 set 方法中主要做两件事 ,第一是更新属性的值,第二是同步值到页面(步骤三实现)
 
@@ -187,24 +194,24 @@ export default class complie {
 > 2.observe.js
 ```javascript
 export default class Observe {
-	constructor(data, vm) {
+	constructor (data, vm) {
 		this.data = data
 		this.vm = vm
 		this.repeatData()
 	}
 
-	repeatData() {
+	repeatData () {
 		Object.keys(this.data).forEach(item => {
 			this.definePrototy(item, this.data[item])
 		})
 	}
 
-	definePrototy(key, val) {
+	definePrototy (key, val) {
 		Object.defineProperty(this.vm, key, {
-			get: function() {
+			get: function () {
 				return val
 			},
-			set: function(newVal) {
+			set: function (newVal) {
         if (newVal === val) return
         // 实现更新val
 				val = newVal
@@ -215,7 +222,10 @@ export default class Observe {
 
 ```
 
+
+
 ### ⌛实现双向绑定 model => view
+
 #### 回顾之前的操作
 >  *new Vue()* 主要操作 监听数据: *observe()*/编译 *HTML：domToFragment()*。
 > 监听数据时候为 *data* 的每个属性生成一个 dep 主体对象
@@ -242,7 +252,7 @@ export default class Observe {
 ```javascript
 import Dep from './dep'
 export default class watcher {
-	constructor(vm, node, name, nodeType) {
+	constructor (vm, node, name, nodeType) {
 		Dep.target = this
 		this.name = name
 		this.node = node
@@ -252,7 +262,7 @@ export default class watcher {
 		Dep.target = null
 	}
 
-	update() {
+	update () {
 		this.get()
 		if (this.nodeType == 'text') {
 			this.node.nodeValue = this.value
@@ -261,7 +271,7 @@ export default class watcher {
 		}
 	}
 
-	get() {
+	get () {
 		this.value = this.vm[this.name] // 触发对应属性的get
 	}
 }
@@ -275,15 +285,15 @@ export default class watcher {
 > 4.dep.js
 ```javascript
 export default class Dep {
-	constructor() {
+	constructor () {
 		this.subs = []
 	}
 
-	addSub(sub) {
+	addSub (sub) {
 		this.subs.push(sub)
 	}
 
-	notify() {
+	notify () {
 		this.subs.forEach(sub => {
 			sub.update()
 		})
