@@ -99,7 +99,7 @@ new Vue({
 
 > *DocumentFragment*（文档片段）可以看作节点容器，它可以包含多个子节点，当我们将它插入到 *DOM* 中时，只有它的子节点会插入目标节点，所以把它看作一组节点的容器。使用 *DocumentFragment* 处理节点，速度和性能远远优于直接操作 *DOM*。*Vue* 进行编译时，就是将挂载目标的所有子节点劫持（通过 *append* 方法，*DOM* 中的节点会被自动删除）到 *DocumentFragment* 中，经过一番处理后，再将 *DocumentFragment* 整体返回插入挂载目标。
 
-> vue.js
+> [**vue.js**](./es6/vue.js)
 
 ```javascript
 import Complie from './complie'
@@ -145,7 +145,7 @@ export default class complie {
 }
 ```
 
-> complie.js
+> [**complie.js**](./es6/complie.js)
 
 ```javascript
 import Watcher from './watcher'
@@ -208,7 +208,7 @@ export default class complie {
 
 > *Object.defineProperty* 将 data 中的 各个属性 设置为实例的访问器属性(优先级高于普通属性)
 
-> 2.observe.js
+> 2.[**observe.js**](./es6/observe.js)
 
 ```javascript
 export default class Observe {
@@ -257,7 +257,7 @@ export default class Observe {
     <img src="./img/2.png"/>
 </p> 
 
-> 2.watcher.js
+> 2.[**watcher.js**](./es6/watcher.js)
 
 > 2.1 把自己赋值给了一个全局变量 Dep.target
 
@@ -296,13 +296,13 @@ export default class watcher {
 }
 ```
 
-> 3.observe.js
+> 3.[**observe.js**](./es6/observe.js)
 
 <p align="center">
     <img src="./img/3.png"/>
 </p> 
 
-> 4.dep.js
+> 4.[**dep.js**](./es6/dep.js)
 
 ```javascript
 export default class Dep {
