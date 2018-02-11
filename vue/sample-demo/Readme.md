@@ -212,30 +212,30 @@ export default class complie {
 
 ```javascript
 export default class Observe {
-	constructor (data, vm) {
-		this.data = data
-		this.vm = vm
-		this.repeatData()
-	}
-
-	repeatData () {
-		Object.keys(this.data).forEach(item => {
-			this.definePrototy(item, this.data[item])
-		})
-	}
-
-	definePrototy (key, val) {
-		Object.defineProperty(this.vm, key, {
-			get: function () {
-				return val
-			},
-			set: function (newVal) {
+  constructor (data, vm) {
+    this.data = data
+    this.vm = vm
+    this.repeatData()
+  }
+  
+  repeatData () {
+    Object.keys(this.data).forEach(item => {
+      this.definePrototy(item, this.data[item])
+    })
+  }
+  
+  definePrototy (key, val) {
+    Object.defineProperty(this.vm, key, {
+      get: function () {
+        return val
+      },
+      set: function (newVal) {
         if (newVal === val) return
         // 实现更新val
-				val = newVal
-			}
-		})
-	}
+        val = newVal
+      }
+    })
+  }
 }
 
 ```
