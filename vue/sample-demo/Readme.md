@@ -255,13 +255,13 @@ export default class watcher {
 		this.value = this.vm[this.name] // 触发对应属性的get
 	}
 }
+```
 
 > 4.observe.js
 <p align="center">
     <img src="./img/3.png"/>
 </p> 
 
-```
 > 4.dep.js
 ```javascript
 export default class Dep {
