@@ -7,7 +7,8 @@
 	"author": "chenxuan <chenxuan@kongzhongjr.com>",
 	"license": "MIT",
 	"scripts": {
-		"demo1": "parcel vue/sample-demo/demo1.html"
+		"demo1": "parcel vue/sample-demo/demo1.html",
+		"demo2": "parcel vue/virtualDom/demo2.html"
 	},
 	"dependencies": {
 		"babel-preset-env": "^1.6.1"
