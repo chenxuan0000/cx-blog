@@ -104,43 +104,31 @@ new Vue({
 ```javascript
 import Complie from './complie'
 
-export default class complie {
-  constructor (node, vm) {
-    this.node = node
-    this.vm = vm
-    this.run()
+export default class Vue {
+  constructor (params) {
+    this.data = params.data
+    this.el = params.el
+    this.appendChild()
   }
 
-  run () {
-    let reg = /\{\{(.*)\}\}/
-    let node = this.node
-    let vm = this.vm
-    let nodeType = node.nodeType
-    switch (nodeType) {
-      case 1:
-        // 元素节点
-        let attr = node.attributes
-        for (let i = 0; i < attr.length; i++) {
-          if (attr[i].nodeName == 'v-model') {
-            // data值赋值给node
-            let name = attr[i].nodeValue
-            // input事件
-            node.addEventListener('input', e => {
-              vm[name] = e.target.value
-            })
-            node.value = vm.data[name]
-            node.removeAttribute('v-model')
-          }
-        }
-        break
-      case 3:
-        // 文本节点
-        if (reg.test(node.nodeValue)) {
-          let name = RegExp.$1.trim()
-          node.nodeValue = vm.data[name]
-        }
-        break      
-    }
+  domToFragment (node) {
+    // createDocumentFragment 效率高于原生dom操作很多
+    let parent = document.createDocumentFragment()
+    let child
+    while ((child = node.firstChild)) {
+      // 使用documentFragment的append方法，会将作为参数的节点从DOM中截取取出来
+      // 而firstChild就指向了本来是排在第二个的元素对象。如此循环下去 
+      // 劫持node所有子节点
+      new Complie(child, this)
+      parent.appendChild(child)
+		}
+    return parent
+  }
+
+  appendChild () {
+    let nodeEle = document.getElementById(this.el)
+    let dom = this.domToFragment(nodeEle)
+    nodeEle.appendChild(dom)
   }
 }
 ```
