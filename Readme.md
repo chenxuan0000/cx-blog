@@ -10,3 +10,7 @@
 ## 📌Git
 
 1. [**git 常用命令合集**](./git/common-commands/Readme.md)
+
+## ⏏ES6
+
+1. [**ES6 标准**](./ES6/Readme.md)
