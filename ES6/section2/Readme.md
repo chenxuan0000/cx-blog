@@ -1,4 +1,4 @@
-## 内容
+# 变量的解构赋值
 
 - [**`1.数组的解构赋值`**](#数组的解构赋值)
     - [**`1.1 基本用法`**](#基本用法)
@@ -16,7 +16,7 @@
     
     
 
-# 数组的解构赋值
+## 数组的解构赋值
 
 ### 基本用法
 
@@ -99,7 +99,7 @@ let [x = 1,y = x] = [2] // x 2 y 2
 let [x = y, y = 1] = [] // ReferenceError 引用错误
 ```
 
-# 对象的解构赋值
+## 对象的解构赋值
 
 ```javascript
 let {foo, bar , fee} = {foo: 'foo',bar: 'bar'}
@@ -153,7 +153,7 @@ let x
 let {abs, floor} = Math
 ```
 
-# 字符串的解构赋值
+## 字符串的解构赋值
 ```javascript
 // 字符串也可以解构英文此时字符串被转换成一个类似数组的对象
 const [a, b, c, d] = 'hello'
@@ -163,7 +163,7 @@ const {length: len} = 'hello'
 len // 5
 ```
 
-# 数值和布尔的解构赋值
+## 数值和布尔的解构赋值
 > 如果等号右边是数组和布尔会被先转换为对象
 ```javascript
 //undefined,null 无法转为对象会直接报错
@@ -171,7 +171,7 @@ let {prop: x} = undefined
 let {prop: y} = null
 ```
 
-# 函数参数的解构赋值
+## 函数参数的解构赋值
 ```javascript
 function add([x,y]) {
   return x + y
@@ -199,7 +199,7 @@ move() // [0,0]
 //这个是为move的参数指定默认值 和之前的不一样
 ```
 
-# 圆括号的问题
+## 圆括号的问题
 ```javascript
 // 能使用圆括号的情况 赋值语句的非模式部分
 ({ p: (d) } = {}) // right
@@ -211,7 +211,7 @@ function f([(z)]) { return z }  // error
 ({ p: d }) = {} // right
 ```
 
-# 用途
+## 用途
 
 ### 交换变量的值
 ```javascript
