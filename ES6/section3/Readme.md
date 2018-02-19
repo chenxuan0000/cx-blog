@@ -3,6 +3,7 @@
 - [**`1.字符串的Unicode表示法`**](#字符串的unicode表示法)
 - [**`2.includes()、startsWith()、endsWith()`**](#包含字符判断方法)
 - [**`3.repeat`**](#repeat)
+- [**`4.模板字符串`**](#模板字符串)
     
 
 ## 字符串的Unicode表示法
@@ -57,4 +58,18 @@ s.includes('hello', 6) // false
 
 // padStart 常用于补齐指定位数
 '123'.padStart(10,'0') // '0000000123'
+```
+
+### 模板字符串
+```javascript
+// 运算
+var x = 1
+var y = 2
+`${x} + ${y+2} = ${x+y+2}` // 1 + 4 = 5
+
+// 调用函数
+function fn () {
+  return 'chenxuan'
+}
+`i am ${fn()}`  // i am chenxuan
 ```
