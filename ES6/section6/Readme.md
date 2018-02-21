@@ -5,7 +5,7 @@
   - [**`1.2与解构赋值默认值结合使用`**](#与解构赋值默认值结合使用)
   - [**`1.3函数的length属性`**](#函数的length属性)
   - [**`1.作用域`**](#作用域)
-  
+- [**`2.rest参数`**](#rest参数)
   
     
 
@@ -88,6 +88,10 @@ m2({}) // [undefined,undefined]
 
 ### 作用域
 > 指定了默认值后,函数进行声明初始化时，参数会形成一个单独的作用域(context),等到初始化结束后,这个作用域会消失。这种语法在不设置参数默认值时是不会出现的。
+
+[**`暂时性死区`**](https://github.com/chenxuan0000/learning-records/blob/master/ES6/section1/Readme.md#%E6%9A%82%E6%97%B6%E6%80%A7%E6%AD%BB%E5%8C%BA)
+
+
 ```javascript
 let x = 1
 function f(y = x) {
@@ -110,5 +114,54 @@ function f(x = x) {
   ...
 }
 f()  // ReferenceError: x is not defined
-// 参数 x = x形成一个单独的作用域，实际上执行的是let x = x, let x在未声明前定义导致了[**`暂时性死区`**](https://github.com/chenxuan0000/learning-records/blob/master/ES6/section1/Readme.md#%E6%9A%82%E6%97%B6%E6%80%A7%E6%AD%BB%E5%8C%BA)
+// 参数 x = x形成一个单独的作用域，实际上执行的是let x = x, let x在未声明前定义导致了暂时性死区
+
+//一个复杂的例子
+var x = 1
+funtion f1(x, y = function () { x = 2 }) {
+  var x = 3
+  y()
+  console.log(x)
+}
+
+ f1() // 3
+ x // 1
+
+ // 上面foo的参数形成了一个单独的作用域，这个匿名函数y里面的变量x指向了同一个作用域的第一个参数x，函数foo里面声明了内部变量x与第一个参数x由于不少同一个作用域，所以不少同一个变量
+
+ //如果将var x = 3 的var去掉，foo的内部变量x就指向了第一个参数，与匿名函数内部的x是一致的被覆盖成了2，外层的全局变量不受影响
+var x = 1
+funtion f1(x, y = function () { x = 2 }) {
+  x = 3
+  y()
+  console.log(x)
+}
+
+ f1() // 2
+ x // 1
 ```
+
+## rest参数
+> 引入rest参数用来获取函数的多余参数
+```javascript
+function add (...val) {
+  let sum = 0
+
+  for (var item of val) {
+    sum += item
+  }
+
+  return sum
+}
+
+add(2, 3, 5) // 10
+
+// rest 代替arguments的例子
+// arguments写法
+function sortNumbers() {
+  return Array.prototype.slice.call(arguments).sort()
+}
+
+// rest参数写法
+const sortNumbers = (...args) => args.sort()
+``` 
