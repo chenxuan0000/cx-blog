@@ -25,3 +25,5 @@
 ## 5.[® 正则的拓展](./section4/Readme.md)
 
 ## 6.[® 数值的拓展](./section5/Readme.md)
+
+## 7.[⚱ 函数的拓展](./section6/Readme.md)
