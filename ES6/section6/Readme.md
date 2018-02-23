@@ -6,6 +6,10 @@
   - [**`1.3函数的length属性`**](#函数的length属性)
   - [**`1.作用域`**](#作用域)
 - [**`2.rest参数`**](#rest参数)
+- [**`3.严格模式`**](#严格模式)
+- [**`4.箭头函数`**](#箭头函数)
+- [**`5.尾调用优化`**](#尾调用优化)
+- [**`6.尾递归`**](#尾递归)
   
     
 
@@ -142,7 +146,7 @@ funtion f1(x, y = function () { x = 2 }) {
 ```
 
 ## rest参数
-> 引入rest参数用来获取函数的多余参数
+> 引入rest参数用来获取函数的剩余参数
 ```javascript
 function add (...val) {
   let sum = 0
@@ -165,3 +169,151 @@ function sortNumbers() {
 // rest参数写法
 const sortNumbers = (...args) => args.sort()
 ``` 
+
+
+## 严格模式
+> ES5开始，函数内部可以设定为严格模式
+```javascript
+function doSomething (a, b) {
+  'use strict'
+  // code
+}
+```
+
+
+> ES2016坐牢一些修改，规定只要函数参数使用了默认值，解构赋值或者拓展运算符，那么函数内部就不能显式的设定为严格模式，否则报错
+
+```javascript
+//报错
+function doSomething (a, b = a) {
+  'use strict'
+  // code
+}
+//报错
+const doSomething = function ({a, b}) {
+  'use strict'
+  // code
+}
+//报错
+const doSomething = (...a) => {
+  'use strict'
+  // code
+}
+
+//原因是因为函数执行时先执行的是函数参数，然后在执行函数体，这样就有一个不合理的地方，只有从函数体之中，参数是否应该以严格模式执行。
+```
+
+> 以下两种方法可以规避这种限制
+*1.设定全局性的严格模式*
+```javascript
+'use strict'
+const doSomething = (...a) => {
+  // code
+}
+```
+*2.把函数包在一个无参数的立即执行函数里面*
+```javascript
+const doSomething = (function () {
+  'use strict'
+  return function (value = 42) {
+    return value      
+  }
+}())
+```
+
+## 箭头函数
+- 函数体内的this对象就是定义时所在的对象，而不是使用时所在的对象
+- 不可以当做构造函数，就是说不可以使用new，否则报错
+- 不可以使用arguments对象，但是可以用rest剩余参数替代
+- 不可以使用yield命令，因此不能用Generator函数
+
+```javascript
+//另外箭头函数内部没有this,不能使用call(),apply(),bind()去改变this的指向
+(function () {
+  return [
+    (() => this.x).bind({x:'inner'})()
+  ]
+}).call({x: 'outer'})
+
+// 'outer'
+```
+
+## 尾调用优化
+### 什么是尾调用
+>(Tail Call)是函数式编程的一个重要概念，是指一个函数在最后一步调用另一个函数。
+```javascript
+//就这是尾调用
+function f(x) {
+  return g(x)
+}
+
+//下面的情况不属于尾调用
+function f(x) {
+  let y = g(x) //还有赋值操作
+  return y
+}
+
+function f(x) {
+  return g(x) + 1  //还有其他操作
+}
+
+function f(x) {
+  g(x)
+}
+//等同于
+function f(x) {
+  g(x)
+  return undefined
+}
+```
+
+### 尾调用优化
+>尾调用和其他调用不同就在于，其特殊的调用位置。函数调用会在内存中形成一个调用帧，因为尾调用是最后一步操作没必要保存这些信息。
+
+```javascript
+function f() {
+  let m = 1
+  let n = 2
+  return g(m + n)
+}
+f()
+
+// 等同于
+function f() {
+  return g(3)
+}
+f()
+//节省内存
+```
+
+## 尾递归
+> 函数调用自身就是递归，如果尾调用自身就是尾递归，递归很耗内存，因为需要同时保存成百上千和调用帧，很容易发生**栈溢出(stack overflow)**错误,但是对于尾递归来说，只有一个调用栈不会发生这种情况。
+```javascript
+//复杂度O(n)
+function factorial(n) {
+  if( n === 1) return 1
+  return n * factorial(n-1)
+}
+//复杂度O(1)
+function factorial(n, total = 1) {
+  if( n === 1) return total
+  return factorial(n-1 , n * total)
+}
+
+//计算Fibonacci数列
+function Fibonacci(n) {
+  if (n <= 1) return 1
+  return Fibonacci(n - 1) + Fibonacci(n - 2)
+}
+Fibonacci(10) //89
+Fibonacci(100) //堆栈溢出
+
+//尾递归优化后
+function Fibonacci2(n, ac1 = 1, ac2 = 1) {
+  if(n <= 1) return ac2
+  return Fibonacci2(n - 1, ac2, ac1 + ac2)
+}
+Fibonacci2(100) //573147844013817200000
+Fibonacci2(1000) //7.0330367711422765e+208
+Fibonacci2(10000) //Infinity
+```
