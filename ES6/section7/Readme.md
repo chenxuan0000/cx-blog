@@ -5,7 +5,8 @@
   - [**`1.2替代apply的方法`**](#替代apply的方法)
   - [**`1.3实际应用`**](#实际应用)
 - [**`2.Array.from()`**](#类数组转换为数组)
-- [**`2.Array.of()`**](#将一组值转换为数组)
+- [**`3.Array.of()`**](#将一组值转换为数组)
+- [**`4.Array常用api`**](#array常用api)
     
 ## 拓展运算符
 
@@ -129,4 +130,69 @@ Array.of() // [] 无参数返回空数组
 Array()  // []
 Array(3)  // [,,,]
 Array(3,4,5)  // [3,4,5]
+```
+
+## array常用api
+
+### find()和findIndex()
+> find()找出第一个返回条件的数组成员并返回，没有符合的返回undefined
+```javascript
+[1, 4, -1 , 10].find( n => n < 0)  // -1
+[1, 4, -1 , 10].find( n => n < -2)  // undefined
+[1, 4, -1 , 10].find((val,index,arr) => {
+  return val > 9
+})  // 9
+```
+
+> findIndex()找出第一个返回条件的数组成员的位置并返回，没有符合的返回-1
+```javascript
+[1, 4, -1 , 10].findIndex( n => n < 0)  // 2
+[1, 4, -1 , 10].findIndex( n => n < -2)  // -1
+[1, 4, -1 , 10].findIndex((val,index,arr) => {
+  return val > 9
+})  // 3
+```
+
+> 另外这两个方法可以用来方法NaN,弥补数组indexOf方法的不足
+```javascript
+[NaN].indexOf(NaN) // -1
+[NaN].findIndex( y => Object.is(NaN, y)) // 0
+//Object.is(value1, value2); 判断是否为同一个值
+```
+
+### fill()
+> 给定值填充一个数组
+```javascript
+['a', 'b', 'c'].fill(7) //[7, 7, 7]
+['a', 'b', 'c'].fill(7, 1, 2) //['a', 7, 'b']
+//fill方法从一号位开始向原数组填充7，到二号位之前结束。
+```
+
+### 数组实例的entires(),keys(),values()
+> 用于遍历数组，返回一个遍历器对象，可以用于for...of循环遍历。唯一的区别是keys是对键名的遍历，values是对键值的遍历，entires是对键值对的遍历。
+```javascript
+for(let index of [1,2].keys()){
+  console.log(index)
+} // 0  1
+
+for(let elem of ['b','c'].values()){
+  console.log(elem)
+} // 'b' 'c'
+for(let [index, elem] of ['b','c'].entries()){
+  console.log(index,elem)
+} 
+// 0 'b'
+// 1 'c'
+```
+
+### includes()
+> 返回一个Boolean，表示某个数组是否包含给定的值
+```javascript
+[1,2,NaN].includes(NaN) // true
+```
+
+>第二个参数为搜索开始位置，默认为0，是负数表示倒数的位置
+```javascript
+[1,2,3,4].includes(3,3) // false
+[1,2,3,4].includes(3,-1) // false
 ```

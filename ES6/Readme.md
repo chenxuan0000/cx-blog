@@ -29,3 +29,5 @@
 ## 7.[⚱ 函数的拓展](./section6/Readme.md)
 
 ## 8.[↕ 数组的拓展](./section7/Readme.md)
+
+## 9.[↘ 对象的拓展](./section8/Readme.md)
