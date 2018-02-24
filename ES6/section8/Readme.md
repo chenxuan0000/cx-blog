@@ -320,7 +320,7 @@ const obj = {
   b: 2
 }
 
-// null,undefined被忽略 不报错
+// null,undefined被忽略,不报错
 let emptyObj = {...null, ...undefined} //{} 不报错
 ```
 
