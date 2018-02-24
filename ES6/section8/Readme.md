@@ -321,7 +321,7 @@ const obj = {
 }
 
 // null,undefined被忽略,不报错
-let emptyObj = {...null, ...undefined} // {} 不报错
+let emptyObj = {...null, ...undefined} //{} 不报错
 ```
 
 ## Null传导运算符
