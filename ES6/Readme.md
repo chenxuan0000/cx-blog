@@ -43,3 +43,7 @@
 ## 14.[↘ Promise](./section13/Readme.md)
 
 ## 15.[🏛 Class](./section14/Readme.md)
+
+## 16.[🏛 Class的继承](./section15/Readme.md)
+
+## 17.[🏛 Module的语法](./section16/Readme.md)
