@@ -14,3 +14,10 @@
 ## ⏏ES6
 
 1. [**ES6 标准**](./ES6/Readme.md)
+
+
+## ☸ 项目中常踩的坑
+
+1. [**css方面**](./bug/css/Readme.md)
+2. [**vue方面**](./bug/vue/Readme.md)
+3. [**js方面**](./bug/js/Readme.md)
