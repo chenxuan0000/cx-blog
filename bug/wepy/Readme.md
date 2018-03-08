@@ -74,7 +74,7 @@ export default class Index extends wepy.page {
 > 目前repeat组件有部分bug[**`repeat的bug`**](https://github.com/Tencent/wepy/issues?utf8=%E2%9C%93&q=repeat)。
 
 ## 小程序里面怎么实现阻止遮罩层的滑动穿透
-- 1.如果弹出层没有滚动事件，就直接在蒙板上加catchtouchmove="move" move:function(){};
+- 1.如果弹出层没有滚动事件，就直接在蒙板上加catchtouchmove="true";
 
 - 2.如果弹出层有滚动事件，那么在弹出层出现的时候给底部的containerView加上一个class 消失的时候移除。
 ```javascript
