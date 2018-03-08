@@ -21,3 +21,4 @@
 1. [**css方面**](./bug/css/Readme.md)
 2. [**vue方面**](./bug/vue/Readme.md)
 3. [**js方面**](./bug/js/Readme.md)
+4. [**小程序及wepy框架方面**](./bug/wepy/Readme.md)
