@@ -7,6 +7,7 @@
 - [**`5.小程序里面怎么实现阻止遮罩层的滑动穿透`**](#小程序里面怎么实现阻止遮罩层的滑动穿透)
 - [**`6.遮罩层的淡入淡出`**](#遮罩层的淡入淡出)
 - [**`7.上啦加载和下啦刷新`**](#上啦加载和下啦刷新)
+- [**`8.小程序里面的图片`**](#小程序里面的图片)
 
 ## wepy概述
 > WePY借鉴了Vue.js（后文简称Vue）的语法风格和功能特性，如果你之前从未接触过Vue，建议先阅读Vue的官方文档，以熟悉相关概念，否则在阅读[**`WePY文档`**](https://tencent.github.io/wepy/document.html#/)以及使用WePY进行开发的过程中，将会遇到比较多的障碍。
@@ -114,7 +115,7 @@ export default class Index extends wepy.page {
 
 ## 上啦加载和下啦刷新
 > 通过`scroll-view`组件实现，尝试下来比较难用
-  - 下来刷新无法很好的控制，会触发很多次，就算用一些方法控制只刷一次，也解决不了松手在刷新的问题。
+  - 下啦刷新无法很好的控制，会触发很多次，就算用一些方法控制只刷一次，也解决不了松手在刷新的问题。
 
 > 通过onPullDownRefresh，onPageScroll，onReachBottom实现
 ```javascript
@@ -123,3 +124,11 @@ export default class Index extends wepy.page {
       enablePullDownRefresh: true
     }
 ```
+
+## 小程序里面的图片
+>  小程序里面的图片有默认宽高，而且和html的img不一样需要注意，具体看文档[**`imgae`**](https://mp.weixin.qq.com/debug/wxadoc/dev/component/image.html)
+```javascript
+<image src="{{item.imgUrl}}" class="slide-image" mode="aspectFill"></image>
+```
+
+>  小程序里面的图片用背景图需要用base64，或者网络图片地址。
