@@ -7,6 +7,12 @@
 1. [**vue 简单的双向数据绑定实现**](./vue/sample-demo/Readme.md)
 2. [**vue 简单的virtual dom to real dom**](./vue/virtualDom/Readme.md)
 
+
+## 🔰 Javascript
+
+1. [**函数柯里化**](./javascript/currying/Readme.md)
+
+
 ## 📌Git
 
 1. [**git 常用命令合集**](./git/common-commands/Readme.md)
@@ -19,6 +25,7 @@
 ## 📔nodejs脚本
 
 1. [**文件扫描,批量增加替换内容**](./nodejs/method1/Readme.md)
+1. [**删除文件夹及文件**](./nodejs/method2/Readme.md)
 
 
 ## ☸ 项目中常踩的坑
