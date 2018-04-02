@@ -12,14 +12,19 @@
 
 1. [**函数柯里化**](./javascript/currying/Readme.md)
 
+## ®正则表达式
+1. [**获取链接的query**](./regexp/query/Readme.md)
+2. [**数字格式化问题**](./regexp/numberFormat/Readme.md)
+3. [**去掉前后空格**](./regexp/removeBlank/Readme.md)
+4. [**字符串数组去重**](./regexp/stringArr/Readme.md)
 
 ## 📌Git
 
-1. [**git 常用命令合集**](./git/common-commands/Readme.md)
+1. [**git常用命令合集**](./git/common-commands/Readme.md)
 
 ## ⏏ES6
 
-1. [**ES6 标准**](./ES6/Readme.md)
+1. [**ES6标准**](./ES6/Readme.md)
 
 
 ## 📔nodejs脚本
