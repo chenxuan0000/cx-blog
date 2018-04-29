@@ -1,4 +1,4 @@
-# 同请求过滤方法次处为获取 token实例
+# 同请求过滤方法次处为获取 token 实例
 
 ## defer.js
 
@@ -38,39 +38,89 @@ export default deferLodash
 import defer from './defer';
 import deferLodash from './deferLodash';
 
-const preUrl = ''
+const preUrl = '';
+const cache = {};
 const Util = {
-    	// getToken
-		_getToken() {	
-		},
-		// refreshToken
-		_refreshToken(refreshToken) {
-		},
-		setStroge({ access_token, refresh_token }) {
-		}
+    // getToken
+    _getToken() {
+
+    },
+    // refreshToken
+    _refreshToken(refreshToken) {
+
+    },
+    setStroge({ access_token, refresh_token }) {
+
+    }
 }
 
+const getToken = ({
+    key = 'getToken',
+    skip = false,
+    refreshToken = ''
+} = {}) {
+    let methodName = `_${key}`
+    if (skip = true) {
+        return Util[methodName](refreshToken)
+    }
+    if (!cache[key]) {
+         cache[key] = {
+             status: 'init',
+             callbacks: [],
+             resolveData: null
+         }
+    }
+    // let deferred = $.Deferred()  // jq 
+    let deferred = defer();  // promise
+    switch (cache[key]['status]) {
+        case 'reject':
+        case 'init':
+        cache[key]['status'] = 'pending'
+        Util[methodName](refreshToken)
+            .done(data => {
+                cache[key]['status'] = 'resolve'
+                cache[key]['resolveData'] = data
+                let current
+                // 替换同步产生的错误resolve
+                while ((current = cache[key]['callbacks'].pop())) {
+                    current[0](data)
+                }
+            })
+            .fail(err => {
+                cache[key]['status'] = 'reject'
+                let current
+                // 替换同步产生的错误reject
+                while ((current = cache[key]['callbacks'].pop())) {
+                    current[1](err)
+                }
+            })
+        case 'pending':
 
-const getToken = ({ key = 'getToken', skip = false, refreshToken = '' } = {}) {
-			let methodName = `_${key}`
-			if (skip === true) {
-				return Util[methodName](refreshToken)
-			}
-			if (!cache[key]) {
-				cache[key] = {
-					status: 'init',
-					callbacks: [],
-					resolveData: null
-				}
-			}
-			// let deferred = $.Deferred()  // jq  
-              let deferred = defer();  // promise
+    }
+}
 
-
-			switch (cache[key]['status']) {
-				case 'reject':
-				case 'init':
-					cache[key]['status'] = 'pending'
+const getToken = ({
+    key = 'getToken',
+     skip = false,
+     refreshToken = ''
+     } = {}) {
+         let methodName = `_${key}`
+         if (skip === true) {
+             return Util[methodName](refreshToken)
+             }
+             if (!cache[key]) {
+                 cache[key] = {
+                     status: 'init',
+                     callbacks: [],
+                     resolveData: null
+                     }
+                }
+                // let deferred = $.Deferred()  // jq  
+                let deferred = defer();  // promise
+                switch (cache[key]['status']) {
+                    case 'reject':
+                    case 'init':
+                    cache[key]['status'] = 'pending'
 					Util[methodName](refreshToken)
 						.done(data => {
 							cache[key]['status'] = 'resolve'
