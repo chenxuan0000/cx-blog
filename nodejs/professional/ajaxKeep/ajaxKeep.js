@@ -11,11 +11,8 @@ const Util = {
 	setStroge({ access_token, refresh_token }) {}
 }
 
-const getToken = ({
-	key = 'getToken',
-	skip = false,
-	refreshToken = ''
-} = {}) => {
+// getToken or refreshToken
+function getToken({ key = 'getToken', skip = false, refreshToken = '' } = {}) {
 	let methodName = `_${key}`
 	if (skip === true) {
 		return Util[methodName](refreshToken)
@@ -69,3 +66,5 @@ const getToken = ({
 	// return deferred  // jq
 	return deferred.promise // promise
 }
+
+export default getToken
