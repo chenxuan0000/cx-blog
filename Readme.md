@@ -40,6 +40,8 @@
 ## ⏳业务代码封装
 
 1. [**axios业务封装**](./nodejs/professional/axios/Readme.md)
+2. [**同请求过滤方法**](./nodejs/professional/ajaxKeep/Readme.md)
+
 
 ## ☸ 项目中常踩的坑
 
