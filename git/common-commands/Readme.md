@@ -29,7 +29,7 @@
 - [**`查看分支信息`**](#查看分支信息)
 - [**`查看远程分支信息`**](#查看远程分支信息)
 - [**`设置本地分支跟踪远程分支`**](#设置本地分支跟踪远程分支)
-- [**`变基`**](#变基)
+- [**`合并本地commit`**](#合并本地commit)
 - [**`解决config`**](#解决config)
 
 ### 配置用户名和邮箱
@@ -202,10 +202,13 @@ git ls-remote origin
 git branch -u origin/test
 ```
 
-### 变基
+### 合并本地commit
 ```javascript
-git rebase test
-```
+git log --oneline  // 查看历史提交记录
+git rebase -i HEAD~3 // 合并最近三次本地提交
+// 进入提交历史的vim预览界面 按i进行编辑 把下面几个的pick 改为s,然后esc :wq保存退出，进入提交信息,dd进行删除，i编辑， :wq保存退出。
+git log --oneline  // 查看历史提交记录，是否成功合并
+ ```
 
 ### 解决config
 ```javascript

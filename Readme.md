@@ -13,6 +13,7 @@
 1. [**函数柯里化**](./javascript/currying/Readme.md)
 2. [**原生ajax请求**](./javascript/xhr/Readme.md)
 3. [**高性能的JavaScript**](./javascript/high-performance/Readme.md)
+4. [**学习JavaScript数据结构和算法**](./javascript/arithmetic/Readme.md)
 
 ## 🔰 router
 
