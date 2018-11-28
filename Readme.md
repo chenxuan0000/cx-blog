@@ -45,6 +45,16 @@
 2. [**同请求过滤方法**](./nodejs/professional/ajaxKeep/Readme.md)
 
 
+## 📔http
+
+1. [**http相关知识**](./http/Readme.md)
+
+## 算法相关
+
+1. [**复杂度分析**](./algorithm/Readme1.md)
+2. [**链表**](./algorithm/Readme2.md)
+
+
 ## ☸ 项目中常踩的坑
 
 1. [**css方面**](./bug/css/Readme.md)
