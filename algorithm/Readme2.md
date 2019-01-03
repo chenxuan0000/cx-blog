@@ -80,4 +80,19 @@ class LinkedList {
     }
   }
 }
+
+
+// Test
+const LList = new LinkedList()
+LList.insert('chen', 'head')
+LList.insert('curry', 'chen')
+LList.insert('sang', 'head')
+LList.insert('zhao', 'head')
+console.log('-------------remove item------------')
+LList.remove('curry', 'chen')
+LList.display()
+console.log('-------------find by item------------')
+LList.findByValue('chen')
+console.log('-------------find by index------------')
+LList.findByIndex(2)
  ```
