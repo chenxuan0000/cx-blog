@@ -14,7 +14,9 @@
 2. [**原生ajax请求**](./javascript/xhr/Readme.md)
 3. [**高性能的JavaScript**](./javascript/high-performance/Readme.md)
 4. [**学习JavaScript数据结构和算法**](./javascript/arithmetic/Readme.md)
-4. [**Promise**](./javascript/Promise/Readme.md)
+5. [**Promise**](./javascript/Promise/Readme.md)
+6. [**如何渲染几万条数据并不卡住界面**](./javascript/test1/Readme.md)
+
 
 ## 🔰 router
 
@@ -54,6 +56,14 @@
 
 1. [**复杂度分析**](./algorithm/Readme1.md)
 2. [**链表**](./algorithm/Readme2.md)
+
+
+## 安全
+1. [**安全**](./safe/Readme.md)
+
+
+## 框架通用知识
+1. [**安全**](./framework/Readme.md)
 
 
 ## ☸ 项目中常踩的坑
