@@ -62,6 +62,9 @@
 1. [**安全**](./safe/Readme.md)
 
 
+## JavaScript设计模式
+1. [**JavaScript设计模式**](./designPattern/Readme.md)
+
 ## 框架通用知识
 1. [**安全**](./framework/Readme.md)
 
