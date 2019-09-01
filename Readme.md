@@ -31,6 +31,11 @@
 ## 📌Git
 
 1. [**git常用命令合集**](./git/common-commands/Readme.md)
+2. [**git merge-快进合并和非快进合并**](./git/merge/Readme.md)
+3. [**git代码统计**](./git/log/Readme.md)
+4. [**git bisect错误查找定位**](./git/bisect/Readme.md)
+
+
 
 ## ⏏ES6
 
