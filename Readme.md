@@ -69,7 +69,9 @@
 
 
 ## JavaScript设计模式
-1. [**JavaScript设计模式**](./designPattern/Readme.md)
+1. [**单例模式**](./designPattern/Readme.md)
+2. [**代理模式**](./proxy/Readme.md)
+
 
 ## 框架通用知识
 1. [**安全**](./framework/Readme.md)
