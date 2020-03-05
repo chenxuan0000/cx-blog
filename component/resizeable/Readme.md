@@ -5,16 +5,16 @@
 ### 概要：
 
 - [**`组件轮廓`**]
-  - [**`template 部分`**]
-  - [**`入参 props 和 data`**]
+  - [**`template部分`**]
+  - [**`入参props和data`**]
 - [**`拖拽实现`**]
-  - [**`created 生命周期重置属性状态`**]
-  - [**`mounted 生命周期绑定事件等`**]
-  - [**`mousedown 事件回调`**]
+  - [**`created生命周期重置属性状态`**]
+  - [**`mounted生命周期绑定事件等`**]
+  - [**`mousedown事件回调`**]
 
-###  组件轮廓
+### 组件轮廓
 
-#### template 部分
+#### template部分
 
 ```html
 <template>
@@ -22,7 +22,7 @@
 </template>
 ```
 
-#### props 入参
+#### props入参
 
 ```javascript
 props: {
@@ -87,9 +87,9 @@ data () {
     },
 ```
 
-###  拖拽实现
+### 拖拽实现
 
-#### created 生命周期重置属性状态
+#### created生命周期重置属性状态
 
 ```javascript
 created () {
@@ -113,7 +113,7 @@ methods: {
 }
 ```
 
-#### mounted 生命周期绑定事件等
+#### mounted生命周期绑定事件等
 
 ```javascript
 mounted () {
