@@ -85,7 +85,7 @@
 
 
 ## ☸ 项目组件设计
-1. [**栅格布局**](./component/resizeable/Readme.md)
+1. [**可拖拽和调整大小的组件**](./component/resizeable/Readme.md)
 
 ## other
 1. [**牙齿**](./other/yachi/Readme.md)
