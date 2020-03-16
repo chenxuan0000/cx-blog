@@ -6,11 +6,12 @@
 
 - [**`组件轮廓`**]
   - [**`template部分`**]
-  - [**`入参props和data`**]
+  - [**`入参props和data和computed`**]
 - [**`拖拽实现`**]
   - [**`created生命周期重置属性状态`**]
   - [**`mounted生命周期绑定事件等`**]
   - [**`mousedown事件回调`**]
+  - [**`watch属性更新left,top`**]
   - [**`beforeDestroy生命周期解绑事件`**]
 
 ### 组件轮廓
@@ -88,6 +89,17 @@ data () {
         dragging: false,
         bounds: {}
       }
+},
+computed: {
+      style () {
+        return {
+          position: 'absolute',
+          top: this.top + 'px',
+          left: this.left + 'px',
+          width: this.width + 'px',
+          height: this.height + 'px'
+        }
+      },
     },
 ```
 
