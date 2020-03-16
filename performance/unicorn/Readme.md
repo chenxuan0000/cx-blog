@@ -19,7 +19,7 @@
 **现存问题**：用户长时间使用unicorn（不刷新），会感觉交互会慢慢变卡。
 
 **问题分析**：最大的原因是项目中存在echarts实例引起的内存泄露，其次还有一些dom、事件监听没有释放。
-
+
 
 ### 借助Chrome Dev Tools验证下
 
@@ -61,24 +61,31 @@ heap snapshot(堆快照)，给当前内存堆拍一张照片。因为动态申�
 - 在`unicorn`下面里面制做两个相同的仪表盘（两个柱状图1，两个柱状图2）。
 
 - 打开两个柱状图1仪表盘，然后点击拍照按钮。
+
 ![alt text](./shot.jpg "Take heap snapshot")
 
 它就会把当前页面的内存堆扫描一遍显示出来，如下图所示：
+
 ![alt text](./snapShot1.jpg "snapshot1")
 
 - 打开两个柱状图2仪表盘，点击垃圾回收的按钮,避免其他干扰问题，然后点击拍照按钮。
+
 ![alt text](./垃圾回收.jpg "垃圾回收")
 
 它就会把当前页面的内存堆扫描一遍显示出来，如下图所示：
+
 ![alt text](./snapShot2.jpg "snapshot2")
 
 **排查下echart相关的泄露问题**
 
 在Class Filter的搜索框里搜一下echart：
+
 第一次快照
+
 ![alt text](./echartShot1.jpg "echartShot1")
 
 第二次快照
+
 ![alt text](./echartShot2.jpg "echartShot2")
 
 确认存在echart引用导致的内存泄露，定位到echart初始化的文件Echart.vue
@@ -150,6 +157,8 @@ beforeDestroy () {
 | 优化前      | 348MB-653MB-910MB   | 2835-4415-6345       | 1768-2896-6345          |
 | 第一次优化后       | 115MB-134MB-154MB   | 3208-3913-5452     | 2190-2706-3668   |
 
+
+**unicorn内存占用优化**
 
 ![alt text](./unicorn内存占用优化.png "unicorn内存占用优化")
 
