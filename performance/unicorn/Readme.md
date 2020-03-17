@@ -66,7 +66,7 @@ heap snapshot(堆快照)，给当前内存堆拍一张照片。因为动态申�
 
 它就会把当前页面的内存堆扫描一遍显示出来，如下图所示：
 
-![alt text](./snapShot1.jpg "snapshot1")
+![alt text](./snapshot1.jpg "snapshot1")
 
 - 打开两个柱状图2仪表盘，点击垃圾回收的按钮,避免其他干扰问题，然后点击拍照按钮。
 
@@ -74,7 +74,7 @@ heap snapshot(堆快照)，给当前内存堆拍一张照片。因为动态申�
 
 它就会把当前页面的内存堆扫描一遍显示出来，如下图所示：
 
-![alt text](./snapShot2.jpg "snapshot2")
+![alt text](./snapshot2.jpg "snapshot2")
 
 **排查下echart相关的泄露问题**
 
