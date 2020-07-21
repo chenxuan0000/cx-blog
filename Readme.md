@@ -92,6 +92,4 @@
 1. [**unicorn项目性能优化1**](./performance/unicorn/Readme.md)
 1. [**unicorn项目性能优化2**](./performance/unicorn2/Readme.md)
 
-## other
-1. [**牙齿**](./other/yachi/Readme.md)
 
